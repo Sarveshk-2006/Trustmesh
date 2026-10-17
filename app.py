@@ -54,46 +54,58 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* CSS Variables matching reference specification */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+    /* High-End Enterprise Design Tokens */
     :root {
         --tm-bg: #F4F7F4;
         --tm-surface: #FFFFFF;
-        --tm-surface-sub: #F9FAF9;
+        --tm-surface-sub: #F8FAF8;
         --tm-brand: #176B45;
-        --tm-brand-dark: #0F5B38;
+        --tm-brand-dark: #0D4E31;
+        --tm-brand-light: #22C55E;
         --tm-brand-soft: #EAF4ED;
-        --tm-brand-border: #C8E1D0;
-        --tm-text: #18251D;
-        --tm-text-secondary: #68766D;
-        --tm-text-muted: #8A988F;
-        --tm-border: #E1E8E2;
-        --tm-grid: #E9EEEA;
+        --tm-brand-border: #C6E2CF;
+        --tm-text: #0F172A;
+        --tm-text-secondary: #475569;
+        --tm-text-muted: #64748B;
+        --tm-border: #E2E8F0;
+        --tm-border-subtle: rgba(15, 23, 42, 0.06);
+        --tm-grid: #EDF2F7;
         --tm-amber: #D97706;
         --tm-amber-bg: #FEF3C7;
         --tm-amber-border: #FDE68A;
-        --tm-red: #DC5353;
+        --tm-red: #DC2626;
         --tm-red-bg: #FEE2E2;
         --tm-red-border: #FECACA;
-        --tm-blue: #2878C8;
+        --tm-blue: #2563EB;
         --tm-blue-bg: #EFF6FF;
         --tm-blue-border: #BFDBFE;
+        --tm-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+        --tm-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06), 0 1px 3px 0 rgba(15, 23, 42, 0.04);
+        --tm-shadow-md: 0 8px 20px -4px rgba(15, 23, 42, 0.08), 0 3px 6px -2px rgba(15, 23, 42, 0.04);
+        --tm-shadow-hover: 0 12px 28px -6px rgba(23, 107, 69, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+        --tm-radius: 12px;
+        --tm-radius-sm: 8px;
     }
 
     /* Global Streamlit Shell */
     .stApp {
         background-color: var(--tm-bg) !important;
         color: var(--tm-text) !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
     }
 
-    /* Hide Streamlit default header bar (Deploy button etc) */
+    /* Hide Streamlit default header bar */
     header[data-testid="stHeader"] {
         display: none !important;
     }
 
     /* Main Container Padding */
     .block-container {
-        padding-top: 1.5rem !important;
+        padding-top: 1.25rem !important;
         padding-bottom: 2rem !important;
         padding-left: 2rem !important;
         padding-right: 2rem !important;
@@ -107,8 +119,8 @@ st.markdown(
         padding-top: 1.25rem !important;
     }
     section[data-testid="stSidebar"] > div:first-child {
-        padding-left: 1.1rem !important;
-        padding-right: 1.1rem !important;
+        padding-left: 1.15rem !important;
+        padding-right: 1.15rem !important;
     }
 
     /* Sidebar Navigation Items: Sleek Nav tabs without radio circles */
@@ -127,25 +139,28 @@ st.markdown(
     div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]),
     div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]),
     div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]) {
-        padding: 8px 12px !important;
-        border-radius: 6px !important;
+        padding: 10px 14px !important;
+        border-radius: var(--tm-radius-sm) !important;
         cursor: pointer !important;
-        margin-bottom: 3px !important;
-        transition: all 0.15s ease !important;
+        margin-bottom: 4px !important;
+        transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
         width: 100% !important;
+        border: 1px solid transparent !important;
     }
     div[data-testid="stRadio"] label:has(input[value*="Overview"]):hover,
     div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]):hover,
     div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]):hover,
     div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]):hover {
         background-color: var(--tm-surface-sub) !important;
+        border-color: var(--tm-border-subtle) !important;
     }
     div[data-testid="stRadio"] label:has(input[value*="Overview"]:checked),
     div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]:checked),
     div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]:checked),
     div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]:checked) {
         background-color: var(--tm-brand-soft) !important;
-        border-left: 3px solid var(--tm-brand) !important;
+        border-left: 3.5px solid var(--tm-brand) !important;
+        box-shadow: 0 1px 3px rgba(23, 107, 69, 0.06) !important;
     }
     div[data-testid="stRadio"] label:has(input[value*="Overview"]:checked) p,
     div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]:checked) p,
@@ -161,12 +176,13 @@ st.markdown(
 
     /* Sidebar Scenario Lab Panel */
     .scenario-lab-box {
-        background-color: var(--tm-surface);
+        background: linear-gradient(180deg, #FFFFFF 0%, #FAFCFA 100%);
         border: 1px solid var(--tm-border);
-        border-radius: 10px;
-        padding: 14px;
+        border-radius: var(--tm-radius);
+        padding: 16px;
         margin-top: 14px;
         margin-bottom: 14px;
+        box-shadow: var(--tm-shadow-sm);
     }
     .scenario-lab-title {
         font-size: 0.92rem;
@@ -176,135 +192,183 @@ st.markdown(
         align-items: center;
         gap: 6px;
         margin-bottom: 4px;
+        letter-spacing: -0.01em;
     }
     .scenario-lab-sub {
-        font-size: 0.78rem;
+        font-size: 0.77rem;
         color: var(--tm-text-secondary);
-        line-height: 1.35;
+        line-height: 1.4;
         margin-bottom: 12px;
     }
 
     /* Sidebar Bottom Info Box */
     .sidebar-info-box {
-        background-color: var(--tm-brand-soft);
+        background: linear-gradient(135deg, var(--tm-brand-soft) 0%, #F0F8F3 100%);
         border: 1px solid var(--tm-brand-border);
-        border-radius: 8px;
-        padding: 10px 12px;
-        margin-top: 14px;
+        border-radius: var(--tm-radius-sm);
+        padding: 11px 13px;
+        margin-top: 16px;
         display: flex;
         align-items: flex-start;
         gap: 8px;
         font-size: 0.75rem;
         color: var(--tm-brand-dark);
-        line-height: 1.4;
+        line-height: 1.45;
+        box-shadow: var(--tm-shadow-sm);
     }
 
     /* Main Page Header */
     .main-header-row {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 16px;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--tm-border);
     }
     .header-left-title {
-        font-size: 1.7rem;
+        font-size: 2.1rem;
         font-weight: 800;
-        color: var(--tm-text);
-        letter-spacing: -0.025em;
+        letter-spacing: -0.03em;
         line-height: 1.1;
         margin: 0;
+        background: linear-gradient(135deg, #0F172A 0%, #157347 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     .header-left-sub {
-        font-size: 0.96rem;
+        font-size: 0.98rem;
         font-weight: 700;
-        color: var(--tm-text);
+        color: #1E293B;
         margin-top: 4px;
-        margin-bottom: 2px;
+        margin-bottom: 3px;
+        letter-spacing: -0.01em;
     }
     .header-left-desc {
         font-size: 0.82rem;
-        color: var(--tm-text-secondary);
+        color: #64748B;
         margin: 0;
     }
     .header-right-badges {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         flex-shrink: 0;
         white-space: nowrap;
     }
     .header-badge {
         font-size: 0.74rem;
         font-weight: 700;
-        padding: 4px 10px;
+        padding: 6px 13px;
         border-radius: 9999px;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        letter-spacing: 0.02em;
+        gap: 6px;
+        letter-spacing: 0.04em;
         white-space: nowrap;
         flex-shrink: 0;
+        box-shadow: var(--tm-shadow-sm);
+        transition: transform 0.15s ease;
+    }
+    .header-badge:hover {
+        transform: translateY(-1px);
     }
     .badge-demo {
-        background-color: var(--tm-brand-soft);
-        color: var(--tm-brand);
-        border: 1px solid var(--tm-brand-border);
+        background: linear-gradient(135deg, #EAF4ED 0%, #D8EFE0 100%);
+        color: #157347;
+        border: 1px solid #B8E2C5;
     }
     .badge-csv {
-        background-color: var(--tm-blue-bg);
-        color: var(--tm-blue);
-        border: 1px solid var(--tm-blue-border);
+        background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+        color: #2563EB;
+        border: 1px solid #BFDBFE;
     }
     .badge-prototype {
-        background-color: #F0F4F1;
-        color: var(--tm-text-secondary);
-        border: 1px solid var(--tm-border);
+        background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+        color: #475569;
+        border: 1px solid #CBD5E1;
     }
     .last-updated-tag {
         font-size: 0.74rem;
-        color: var(--tm-text-secondary);
+        font-weight: 600;
+        color: #64748B;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        margin-left: 4px;
+        gap: 6px;
+        margin-left: 6px;
+        padding: 5px 12px;
+        background: #FFFFFF;
+        border: 1px solid var(--tm-border);
+        border-radius: 9999px;
+        box-shadow: var(--tm-shadow-sm);
         white-space: nowrap;
         flex-shrink: 0;
     }
     .green-dot {
-        width: 7px;
-        height: 7px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
-        background-color: var(--tm-brand);
+        background-color: #22C55E;
+        box-shadow: 0 0 0 2.5px rgba(34, 197, 94, 0.25);
+        animation: pulse-dot 2s infinite ease-in-out;
+    }
+    @keyframes pulse-dot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.15); }
     }
 
     /* KPI Cards */
     .kpi-container {
-        background-color: var(--tm-surface);
+        background: #FFFFFF;
         border: 1px solid var(--tm-border);
-        border-radius: 10px;
-        padding: 14px 16px;
+        border-radius: var(--tm-radius);
+        padding: 16px 18px;
         display: flex;
         align-items: center;
-        gap: 14px;
-        min-height: 98px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        gap: 16px;
+        min-height: 104px;
+        box-shadow: var(--tm-shadow);
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    .kpi-container:hover {
+        transform: translateY(-2.5px);
+        box-shadow: var(--tm-shadow-hover);
+        border-color: rgba(23, 107, 69, 0.25);
+    }
+    .kpi-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #176B45, #22C55E);
+        opacity: 0.85;
     }
     .kpi-icon-wrap {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        transition: transform 0.2s ease;
+    }
+    .kpi-container:hover .kpi-icon-wrap {
+        transform: scale(1.06);
     }
     .kpi-icon-green {
-        background-color: var(--tm-brand-soft);
-        color: var(--tm-brand);
+        background: linear-gradient(135deg, #EAF4ED 0%, #D4EEDD 100%);
+        color: #176B45;
+        border: 1px solid rgba(23, 107, 69, 0.15);
     }
     .kpi-icon-amber {
-        background-color: var(--tm-amber-bg);
-        color: var(--tm-amber);
+        background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+        color: #D97706;
+        border: 1px solid rgba(217, 119, 6, 0.2);
     }
     .kpi-body {
         display: flex;
@@ -312,150 +376,171 @@ st.markdown(
         justify-content: center;
     }
     .kpi-label-text {
-        font-size: 0.74rem;
-        font-weight: 600;
-        color: var(--tm-text-secondary);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--tm-text-muted);
         margin-bottom: 2px;
     }
     .kpi-value-text {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         font-weight: 800;
         color: var(--tm-text);
-        letter-spacing: -0.02em;
+        letter-spacing: -0.03em;
         line-height: 1.1;
     }
     .kpi-sub-text {
-        font-size: 0.74rem;
+        font-size: 0.73rem;
+        font-weight: 500;
         color: var(--tm-text-secondary);
-        margin-top: 2px;
+        margin-top: 3px;
     }
 
     /* Main Section Cards */
     .card-panel {
-        background-color: var(--tm-surface);
+        background: #FFFFFF;
         border: 1px solid var(--tm-border);
-        border-radius: 10px;
-        padding: 16px 18px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-        margin-bottom: 16px;
+        border-radius: var(--tm-radius);
+        padding: 18px 20px;
+        box-shadow: var(--tm-shadow);
+        margin-bottom: 18px;
+        transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .card-panel:hover {
+        border-color: rgba(23, 107, 69, 0.2);
+        box-shadow: var(--tm-shadow-md);
     }
     .card-panel-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
     }
     .card-title-group {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
     .card-title-text {
-        font-size: 0.98rem;
+        font-size: 1.02rem;
         font-weight: 700;
         color: var(--tm-text);
+        letter-spacing: -0.015em;
         margin: 0;
     }
     .card-subtitle-text {
         font-size: 0.78rem;
-        color: var(--tm-text-secondary);
+        color: var(--tm-text-muted);
         margin: 0;
     }
 
     /* Status Pills */
     .status-pill {
-        font-size: 0.72rem;
+        font-size: 0.70rem;
         font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 4px;
-        letter-spacing: 0.03em;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
     .pill-green {
-        background-color: var(--tm-brand-soft);
-        color: var(--tm-brand);
-        border: 1px solid var(--tm-brand-border);
+        background: linear-gradient(135deg, #EAF4ED 0%, #D4EEDD 100%);
+        color: #176B45;
+        border: 1px solid #B8E2C5;
     }
     .pill-amber {
-        background-color: var(--tm-amber-bg);
-        color: var(--tm-amber);
-        border: 1px solid var(--tm-amber-border);
+        background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+        color: #B45309;
+        border: 1px solid #FCD34D;
     }
     .pill-red {
-        background-color: var(--tm-red-bg);
-        color: var(--tm-red);
-        border: 1px solid var(--tm-red-border);
+        background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+        color: #B91C1C;
+        border: 1px solid #FCA5A5;
     }
     .pill-blue {
-        background-color: var(--tm-blue-bg);
-        color: var(--tm-blue);
-        border: 1px solid var(--tm-blue-border);
+        background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+        color: #1D4ED8;
+        border: 1px solid #BFDBFE;
     }
 
     /* Sensor Health Grid (6 Cards) */
     .sensor-item-card {
-        background-color: var(--tm-surface);
+        background: #FFFFFF;
         border: 1px solid var(--tm-border);
-        border-radius: 8px;
-        padding: 12px 14px;
-        min-height: 126px;
+        border-radius: var(--tm-radius);
+        padding: 14px 15px;
+        min-height: 136px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        transition: border-color 0.15s ease;
+        box-shadow: var(--tm-shadow);
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
     }
     .sensor-item-card:hover {
-        border-color: var(--tm-brand-border);
+        transform: translateY(-3px);
+        box-shadow: var(--tm-shadow-hover);
+        border-color: rgba(23, 107, 69, 0.3);
     }
     .sensor-item-top {
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
     }
     .sensor-icon-box {
-        width: 22px;
-        height: 22px;
-        border-radius: 4px;
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.70rem;
+        font-size: 0.75rem;
     }
     .sensor-item-name {
         font-size: 0.88rem;
         font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
         color: var(--tm-text);
+        letter-spacing: -0.01em;
     }
     .sensor-item-score {
-        font-size: 1.35rem;
+        font-size: 1.45rem;
         font-weight: 800;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         color: var(--tm-text);
         line-height: 1.1;
-        margin: 2px 0 6px 0;
+        margin: 2px 0 8px 0;
+        letter-spacing: -0.02em;
     }
     .sensor-item-scale {
-        font-size: 0.74rem;
-        font-weight: 400;
-        color: var(--tm-text-secondary);
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--tm-text-muted);
     }
     .sensor-item-bar-bg {
         width: 100%;
-        height: 5px;
-        background-color: var(--tm-grid);
-        border-radius: 3px;
+        height: 6px;
+        background-color: #EDF2F7;
+        border-radius: 9999px;
         overflow: hidden;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
     .sensor-item-bar-fill {
         height: 100%;
-        border-radius: 3px;
+        border-radius: 9999px;
+        transition: width 0.4s ease;
     }
     .sensor-item-desc {
-        font-size: 0.72rem;
+        font-size: 0.73rem;
         color: var(--tm-text-secondary);
-        line-height: 1.3;
+        line-height: 1.35;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -464,41 +549,106 @@ st.markdown(
 
     /* Diagnostics Card Inner Typography */
     .diag-headline {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         font-weight: 700;
         color: var(--tm-text);
-        margin-top: 2px;
-        margin-bottom: 6px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        letter-spacing: -0.01em;
     }
     .diag-body-text {
-        font-size: 0.82rem;
+        font-size: 0.84rem;
         color: var(--tm-text-secondary);
-        line-height: 1.45;
-        margin-bottom: 12px;
+        line-height: 1.55;
+        margin-bottom: 14px;
     }
     .diag-section-title {
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 700;
-        color: var(--tm-text);
-        margin-bottom: 4px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--tm-text-muted);
+        margin-bottom: 6px;
     }
     .diag-bullet {
-        font-size: 0.78rem;
+        font-size: 0.81rem;
         color: var(--tm-text-secondary);
-        line-height: 1.4;
-        margin-bottom: 3px;
+        line-height: 1.55;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
     }
 
     /* Clean Streamlit Overrides */
     div[data-baseweb="select"] > div {
         background-color: var(--tm-surface) !important;
-        border-color: var(--tm-border) !important;
-        border-radius: 6px !important;
-        min-height: 34px !important;
+        border: 1px solid var(--tm-border) !important;
+        border-radius: var(--tm-radius-sm) !important;
+        box-shadow: var(--tm-shadow-sm) !important;
+        transition: all 0.15s ease !important;
     }
-    .stCheckbox label span {
-        font-size: 0.82rem !important;
-        color: var(--tm-text) !important;
+    div[data-baseweb="select"] > div:hover {
+        border-color: var(--tm-brand-border) !important;
+    }
+    /* Number input boxes */
+    div[data-testid="stNumberInput"] input {
+        border-radius: var(--tm-radius-sm) !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-weight: 600 !important;
+    }
+    /* Multi-select filter chips */
+    span[data-baseweb="tag"] {
+        border-radius: 9999px !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.76rem !important;
+        font-weight: 600 !important;
+        padding: 3px 8px !important;
+    }
+
+    /* Presentation Evidence Table */
+    .matrix-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 0.80rem;
+        background: #FFFFFF;
+        border: 1px solid var(--tm-border);
+        border-radius: var(--tm-radius-sm);
+        overflow: hidden;
+        box-shadow: var(--tm-shadow-sm);
+    }
+    .matrix-table th {
+        background: #F8FAFC;
+        padding: 9px 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        color: #475569;
+        border-bottom: 1px solid var(--tm-border);
+        text-align: left;
+    }
+    .matrix-table td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #F1F5F9;
+        color: #1E293B;
+    }
+    .matrix-table tr:last-child td {
+        border-bottom: none;
+    }
+    .matrix-table tr:hover td {
+        background-color: #F8FAF8;
+    }
+    .matrix-code {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        color: #0F172A;
+    }
+    .matrix-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 500;
+        color: #334155;
     }
     </style>
     """,
@@ -873,14 +1023,14 @@ if raw_df is not None:
             if not selected_channels:
                 selected_channels = ["FIT101"]
 
-            # Trace palette matching reference screenshot (Blue for FIT101, Green for LIT101, Amber for AIT202)
+            # Trace palette matching reference screenshot (Vibrant Blue, Emerald Green, Warm Amber)
             trace_palette = {
-                "FIT101": "#2878C8",  # Electric Blue (matches reference screenshot)
-                "LIT101": "#176B45",  # Forest Green (matches reference screenshot)
-                "AIT202": "#D97706",  # Amber/Orange (matches reference screenshot)
+                "FIT101": "#2563EB",  # Vibrant Royal Blue
+                "LIT101": "#16A34A",  # Emerald Green
+                "AIT202": "#EA580C",  # Vibrant Amber/Orange
                 "FIT301": "#0284C7",  # Sky Blue
-                "LIT301": "#059669",  # Mint Green
-                "AIT401": "#8B5CF6",  # Purple
+                "LIT301": "#0D9488",  # Teal
+                "AIT401": "#9333EA",  # Purple
             }
 
             # Factors to scale heterogeneous sensors into the reference 0.5 - 4.0 visual range
@@ -909,7 +1059,7 @@ if raw_df is not None:
                         y=plot_y,
                         mode="lines",
                         name=s,
-                        line=dict(color=trace_palette.get(s, "#176B45"), width=1.8),
+                        line=dict(color=trace_palette.get(s, "#176B45"), width=2.2),
                         customdata=raw_y,
                         hovertemplate=f"<b>{s}</b>: %{{customdata:.2f}} {unit}<extra></extra>",
                     )
@@ -926,9 +1076,9 @@ if raw_df is not None:
                 fig.add_vrect(
                     x0=metadata["start_time"],
                     x1=metadata["end_time"],
-                    fillcolor="rgba(248, 113, 113, 0.14)",
+                    fillcolor="rgba(244, 63, 94, 0.10)",
                     layer="below",
-                    line=dict(color="rgba(220, 83, 83, 0.65)", dash="dash", width=1.5),
+                    line=dict(color="rgba(225, 29, 72, 0.75)", dash="dash", width=1.6),
                 )
                 # Scatter trace so "Simulated Fault Window" appears in the legend
                 fig.add_trace(
@@ -937,7 +1087,7 @@ if raw_df is not None:
                         y=[None],
                         mode="lines",
                         name="Simulated Fault Window",
-                        line=dict(color="rgba(220, 83, 83, 0.85)", dash="dash", width=1.5),
+                        line=dict(color="rgba(225, 29, 72, 0.85)", dash="dash", width=1.6),
                     )
                 )
 
@@ -961,10 +1111,10 @@ if raw_df is not None:
                                 name="Detected Anomaly",
                                 showlegend=(not anomaly_legend_added),
                                 marker=dict(
-                                    color="#DC5353",
-                                    size=6.5,
+                                    color="#E11D48",
+                                    size=7,
                                     symbol="diamond",
-                                    line=dict(color="#FFFFFF", width=1),
+                                    line=dict(color="#FFFFFF", width=1.2),
                                 ),
                                 customdata=raw_y,
                                 hovertemplate=f"<b>{s} Anomaly</b>: %{{customdata:.2f}} {unit}<extra></extra>",
@@ -979,22 +1129,23 @@ if raw_df is not None:
                 template="plotly_white",
                 plot_bgcolor="#FFFFFF",
                 paper_bgcolor="#FFFFFF",
-                height=340,
+                height=345,
                 margin=dict(l=35, r=20, t=10, b=55),
+                font=dict(family="'Plus Jakarta Sans', sans-serif"),
                 xaxis=dict(
-                    title=dict(text="Timestamp", font=dict(color="#68766D", size=11)),
-                    gridcolor="#E9EEEA",
+                    title=dict(text="Timestamp", font=dict(color="#64748B", size=11)),
+                    gridcolor="rgba(226, 232, 240, 0.7)",
                     showgrid=True,
                     zeroline=False,
-                    tickfont=dict(color="#68766D", size=10),
+                    tickfont=dict(color="#64748B", size=10),
                 ),
                 yaxis=dict(
-                    title=dict(text=y_title, font=dict(color="#68766D", size=11)),
+                    title=dict(text=y_title, font=dict(color="#64748B", size=11)),
                     range=y_range,
-                    gridcolor="#E9EEEA",
+                    gridcolor="rgba(226, 232, 240, 0.7)",
                     showgrid=True,
                     zeroline=False,
-                    tickfont=dict(color="#68766D", size=10),
+                    tickfont=dict(color="#64748B", size=10),
                 ),
                 legend=dict(
                     orientation="h",
@@ -1003,7 +1154,7 @@ if raw_df is not None:
                     xanchor="center",
                     x=0.5,
                     bgcolor="rgba(255, 255, 255, 0)",
-                    font=dict(size=11, color="#18251D"),
+                    font=dict(size=11, color="#1E293B", family="'Plus Jakarta Sans', sans-serif"),
                 ),
                 hovermode="x unified",
             )
@@ -1035,9 +1186,12 @@ if raw_df is not None:
                     "No significant missing data or stuck values",
                 ]
 
-            evidence_bullets_html = "".join(f'<div class="diag-bullet">• {item}</div>' for item in evidence_items[:4])
+            evidence_bullets_html = "".join(
+                f'<div class="diag-bullet"><span style="color: #16A34A; font-weight: 700; font-size: 0.82rem;">✦</span> <span>{item}</span></div>'
+                for item in evidence_items[:4]
+            )
             affected_sensor_tags = "".join(
-                f'<span class="status-pill pill-green" style="margin-right: 4px;">{s}</span>'
+                f'<span class="status-pill pill-green" style="margin-right: 4px; font-family: monospace;">{s}</span>'
                 for s in metadata.get("affected_sensors", [selected_target] if verdict == VERDICT_SENSOR_FAULT else [])
             ) or '<span class="status-pill pill-green">None (Nominal)</span>'
 
@@ -1053,7 +1207,7 @@ if raw_df is not None:
                     <div>
                         <div class="card-panel-header">
                             <div class="card-title-group">
-                                <span style="color: #176B45; font-size: 1.15rem;">🛡️</span>
+                                <span style="color: #176B45; font-size: 1.25rem;">🛡️</span>
                                 <span class="card-title-text">Diagnostic Summary</span>
                             </div>
                             <span class="status-pill {v_pill_class}">{verdict.replace('_', ' ')}</span>
@@ -1063,7 +1217,7 @@ if raw_df is not None:
                         <div class="diag-section-title">Key Evidence</div>
                         {evidence_bullets_html}
                     </div>
-                    <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #E1E8E2; display: flex; justify-content: space-between;">
+                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--tm-border); display: flex; justify-content: space-between;">
                         <div>
                             <div class="diag-section-title">Sensors Involved</div>
                             <div>{affected_sensor_tags}</div>
@@ -1081,16 +1235,16 @@ if raw_df is not None:
         # Row 2: Sensor Trust Overview (Full Width Card with 6 Cards)
         st.markdown(
             """
-            <div class="card-panel" style="padding-bottom: 14px;">
+            <div class="card-panel" style="padding-bottom: 14px; margin-top: 4px;">
                 <div class="card-panel-header">
                     <div class="card-title-group">
-                        <span style="color: #176B45; font-size: 1.15rem;">🛡️</span>
+                        <span style="color: #176B45; font-size: 1.25rem;">🛡️</span>
                         <div>
                             <div class="card-title-text">Sensor Trust Overview</div>
                             <div class="card-subtitle-text">Heuristic trust scores based on anomaly behavior, data quality and cross-sensor consistency.</div>
                         </div>
                     </div>
-                    <div style="font-size: 0.74rem; color: #68766D; font-style: italic;">Prototype heuristic trust indicators — not calibrated probabilities.</div>
+                    <div style="font-size: 0.74rem; color: #64748B; font-style: italic;">Prototype heuristic trust indicators — not calibrated probabilities.</div>
                 </div>
             </div>
             """,
@@ -1099,7 +1253,7 @@ if raw_df is not None:
 
         sensor_card_cols = st.columns(6)
         icon_colors = ["#FEF3C7", "#EFF6FF", "#EAF4ED", "#EFF6FF", "#EFF6FF", "#EAF4ED"]
-        icon_strokes = ["#D97706", "#0284C7", "#176B45", "#2563EB", "#059669", "#DB2777"]
+        icon_strokes = ["#D97706", "#2563EB", "#16A34A", "#0284C7", "#0D9488", "#9333EA"]
 
         for i, s in enumerate(REQUIRED_SENSORS):
             with sensor_card_cols[i]:
@@ -1109,13 +1263,13 @@ if raw_df is not None:
 
                 if lvl == TRUST_HIGH:
                     p_cls = "pill-green"
-                    bar_color = "#176B45"
+                    bar_fill_style = "background: linear-gradient(90deg, #16A34A 0%, #22C55E 100%);"
                 elif lvl == TRUST_MODERATE:
                     p_cls = "pill-amber"
-                    bar_color = "#D97706"
+                    bar_fill_style = "background: linear-gradient(90deg, #D97706 0%, #F59E0B 100%);"
                 else:
                     p_cls = "pill-red"
-                    bar_color = "#DC5353"
+                    bar_fill_style = "background: linear-gradient(90deg, #DC2626 0%, #EF4444 100%);"
 
                 bg_icon = icon_colors[i % len(icon_colors)]
                 stroke_icon = icon_strokes[i % len(icon_strokes)]
@@ -1133,7 +1287,7 @@ if raw_df is not None:
                                 {score:.1f} <span class="sensor-item-scale">/ 100</span>
                             </div>
                             <div class="sensor-item-bar-bg">
-                                <div class="sensor-item-bar-fill" style="width: {score}%; background-color: {bar_color};"></div>
+                                <div class="sensor-item-bar-fill" style="width: {score}%; {bar_fill_style}"></div>
                             </div>
                             <div style="text-align: center; margin-bottom: 6px;">
                                 <span class="status-pill {p_cls}">{lvl}</span>
@@ -1153,10 +1307,13 @@ if raw_df is not None:
         with bottom_col_left:
             st.markdown(
                 """
-                <div class="card-panel">
-                    <div class="card-title-group" style="margin-bottom: 10px;">
-                        <span style="color: #176B45; font-size: 1.15rem;">📊</span>
-                        <div class="card-title-text">Cross-Sensor Evidence Matrix</div>
+                <div class="card-panel" style="margin-bottom: 12px;">
+                    <div class="card-title-group">
+                        <span style="color: #176B45; font-size: 1.25rem;">📊</span>
+                        <div>
+                            <div class="card-title-text">Cross-Sensor Evidence Matrix</div>
+                            <div class="card-subtitle-text">Multi-dimensional verification of physical consistency and anomalies.</div>
+                        </div>
                     </div>
                 </div>
                 """,
@@ -1185,14 +1342,51 @@ if raw_df is not None:
                         "Status": status_lvl,
                     }
                 )
-            st.dataframe(pd.DataFrame(matrix_rows), hide_index=True, use_container_width=True)
+
+            table_rows_html = []
+            for row in matrix_rows:
+                lvl = row["Status"]
+                p_cls = "pill-green" if lvl == TRUST_HIGH else ("pill-amber" if lvl == TRUST_MODERATE else "pill-red")
+                table_rows_html.append(f"""
+                <tr>
+                    <td class="matrix-code">{row['Sensor']}</td>
+                    <td class="matrix-num">{row['Anomaly Count']}</td>
+                    <td class="matrix-num">{row['Anomaly Rate']}</td>
+                    <td class="matrix-num">{row['Max Score']}</td>
+                    <td class="matrix-num">{row['Missing (%)']}</td>
+                    <td class="matrix-num">{row['Stuck']}</td>
+                    <td><span class="status-pill {p_cls}">{lvl}</span></td>
+                </tr>
+                """)
+
+            st.markdown(
+                f"""
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Sensor</th>
+                            <th>Anomalies</th>
+                            <th>Rate</th>
+                            <th>Max Score</th>
+                            <th>Missing</th>
+                            <th>Stuck</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {''.join(table_rows_html)}
+                    </tbody>
+                </table>
+                """,
+                unsafe_allow_html=True,
+            )
 
         with bottom_col_right:
             st.markdown(
                 """
-                <div class="card-panel">
+                <div class="card-panel" style="margin-bottom: 12px;">
                     <div class="card-title-group">
-                        <span style="color: #176B45; font-size: 1.15rem;">🗄️</span>
+                        <span style="color: #176B45; font-size: 1.25rem;">🗄️</span>
                         <div>
                             <div class="card-title-text">Raw Data & Derived Columns</div>
                             <div class="card-subtitle-text">View complete telemetry with anomaly scores, flags and derived signals.</div>
