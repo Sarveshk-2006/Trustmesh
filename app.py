@@ -125,10 +125,7 @@ st.markdown(
     }
 
     /* Sidebar Navigation Items: Sleek Nav tabs without radio circles */
-    div[data-testid="stRadio"] label:has(input[value*="Overview"]) > div:first-child,
-    div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]) > div:first-child,
-    div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]) > div:first-child,
-    div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]) > div:first-child {
+    section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type label > div:first-child {
         display: none !important;
         visibility: hidden !important;
         width: 0 !important;
@@ -136,10 +133,7 @@ st.markdown(
         margin: 0 !important;
         padding: 0 !important;
     }
-    div[data-testid="stRadio"] label:has(input[value*="Overview"]),
-    div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]),
-    div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]),
-    div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]) {
+    section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type label {
         padding: 10px 14px !important;
         border-radius: var(--tm-radius-sm) !important;
         cursor: pointer !important;
@@ -148,29 +142,17 @@ st.markdown(
         width: 100% !important;
         border: 1px solid transparent !important;
     }
-    div[data-testid="stRadio"] label:has(input[value*="Overview"]):hover,
-    div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]):hover,
-    div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]):hover,
-    div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]):hover {
+    section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type label:hover {
         background-color: var(--tm-surface-sub) !important;
         border-color: var(--tm-border-subtle) !important;
     }
-    div[data-testid="stRadio"] label:has(input[value*="Overview"]:checked),
-    div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]:checked),
-    div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]:checked),
-    div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]:checked) {
+    section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type label:has(input:checked) {
         background-color: var(--tm-brand-soft) !important;
         border-left: 3.5px solid var(--tm-brand) !important;
         box-shadow: 0 1px 3px rgba(21, 128, 61, 0.08) !important;
     }
-    div[data-testid="stRadio"] label:has(input[value*="Overview"]:checked) p,
-    div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]:checked) p,
-    div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]:checked) p,
-    div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]:checked) p,
-    div[data-testid="stRadio"] label:has(input[value*="Overview"]:checked) span,
-    div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]:checked) span,
-    div[data-testid="stRadio"] label:has(input[value*="Diagnostics"]:checked) span,
-    div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]:checked) span {
+    section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type label:has(input:checked) p,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type label:has(input:checked) span {
         color: var(--tm-brand) !important;
         font-weight: 700 !important;
     }
@@ -757,23 +739,32 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
+    if "selected_scenario_val" not in st.session_state:
+        st.session_state["selected_scenario_val"] = AVAILABLE_SCENARIOS[0]
+    if "selected_target_val" not in st.session_state:
+        st.session_state["selected_target_val"] = REQUIRED_SENSORS[0]
+
     # Presentation Demo Presets for seamless live demonstrations
     st.markdown('<div class="preset-title">🎯 Presentation Quick Presets</div>', unsafe_allow_html=True)
     p_col1, p_col2 = st.columns(2)
     with p_col1:
         if st.button("🟢 Nominal", help="Reset to clean baseline operation", use_container_width=True):
-            st.session_state["scenario_override"] = "normal operation"
-            st.session_state["target_override"] = "FIT101"
+            st.session_state["selected_scenario_val"] = "normal operation"
+            st.session_state["selected_target_val"] = "FIT101"
+            st.rerun()
         if st.button("⚡ Fast Spike", help="Sudden transient spike on FIT101", use_container_width=True):
-            st.session_state["scenario_override"] = "a short sudden spike"
-            st.session_state["target_override"] = "FIT101"
+            st.session_state["selected_scenario_val"] = "a short sudden spike"
+            st.session_state["selected_target_val"] = "FIT101"
+            st.rerun()
     with p_col2:
         if st.button("⚠️ LIT Drift", help="Gradual drift fault on LIT101", use_container_width=True):
-            st.session_state["scenario_override"] = "gradual drift in one sensor"
-            st.session_state["target_override"] = "LIT101"
+            st.session_state["selected_scenario_val"] = "gradual drift in one sensor"
+            st.session_state["selected_target_val"] = "LIT101"
+            st.rerun()
         if st.button("🏭 Shift", help="Coupled multi-sensor process event", use_container_width=True):
-            st.session_state["scenario_override"] = "process shift in multiple sensors"
-            st.session_state["target_override"] = "FIT101"
+            st.session_state["selected_scenario_val"] = "process shift in multiple sensors"
+            st.session_state["selected_target_val"] = "FIT101"
+            st.rerun()
 
     data_source = st.radio(
         "Data Source 🛈",
@@ -823,30 +814,29 @@ with st.sidebar:
             st.info("Upload a CSV file or switch to Synthetic Telemetry.")
 
     if raw_df is not None:
-        # Determine default scenario from preset override or default
-        default_scenario_idx = 0
-        if "scenario_override" in st.session_state and st.session_state["scenario_override"] in AVAILABLE_SCENARIOS:
-            default_scenario_idx = AVAILABLE_SCENARIOS.index(st.session_state["scenario_override"])
+        cur_scen = st.session_state.get("selected_scenario_val", AVAILABLE_SCENARIOS[0])
+        scen_idx = AVAILABLE_SCENARIOS.index(cur_scen) if cur_scen in AVAILABLE_SCENARIOS else 0
 
         selected_scenario = st.selectbox(
             "Operational Scenario",
             options=AVAILABLE_SCENARIOS,
-            index=default_scenario_idx,
+            index=scen_idx,
             help="Simulate baseline operation, sensor malfunctions, or process events.",
         )
+        st.session_state["selected_scenario_val"] = selected_scenario
 
         is_single_sensor = selected_scenario in SINGLE_SENSOR_SCENARIOS
         if is_single_sensor:
-            default_target_idx = 0
-            if "target_override" in st.session_state and st.session_state["target_override"] in REQUIRED_SENSORS:
-                default_target_idx = REQUIRED_SENSORS.index(st.session_state["target_override"])
+            cur_tgt = st.session_state.get("selected_target_val", REQUIRED_SENSORS[0])
+            tgt_idx = REQUIRED_SENSORS.index(cur_tgt) if cur_tgt in REQUIRED_SENSORS else 0
 
             selected_target = st.selectbox(
                 "Target Sensor 🛈",
                 options=REQUIRED_SENSORS,
-                index=default_target_idx,
+                index=tgt_idx,
                 help="Primary sensor targeted for fault injection.",
             )
+            st.session_state["selected_target_val"] = selected_target
         else:
             selected_target = "FIT101"
             if selected_scenario == "normal operation":
@@ -1440,39 +1430,28 @@ if raw_df is not None:
                 lvl = row["Status"]
                 p_cls = "pill-green" if lvl == TRUST_HIGH else ("pill-amber" if lvl == TRUST_MODERATE else "pill-red")
                 row_cls = "row-anom" if row["HasAnom"] else ""
-                table_rows_html.append(f"""
-                <tr class="{row_cls}">
-                    <td class="matrix-code">{row['Sensor']}</td>
-                    <td class="matrix-num">{row['Anomaly Count']}</td>
-                    <td class="matrix-num">{row['Anomaly Rate']}</td>
-                    <td class="matrix-num">{row['Max Score']}</td>
-                    <td class="matrix-num">{row['Missing (%)']}</td>
-                    <td class="matrix-num">{row['Stuck']}</td>
-                    <td><span class="status-pill {p_cls}">{lvl}</span></td>
-                </tr>
-                """)
+                table_rows_html.append(
+                    f'<tr class="{row_cls}">'
+                    f'<td class="matrix-code">{row["Sensor"]}</td>'
+                    f'<td class="matrix-num">{row["Anomaly Count"]}</td>'
+                    f'<td class="matrix-num">{row["Anomaly Rate"]}</td>'
+                    f'<td class="matrix-num">{row["Max Score"]}</td>'
+                    f'<td class="matrix-num">{row["Missing (%)"]}</td>'
+                    f'<td class="matrix-num">{row["Stuck"]}</td>'
+                    f'<td><span class="status-pill {p_cls}">{lvl}</span></td>'
+                    f'</tr>'
+                )
 
-            st.markdown(
-                f"""
-                <table class="matrix-table">
-                    <thead>
-                        <tr>
-                            <th>Sensor</th>
-                            <th>Anomalies</th>
-                            <th>Rate</th>
-                            <th>Max Score</th>
-                            <th>Missing</th>
-                            <th>Stuck</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {''.join(table_rows_html)}
-                    </tbody>
-                </table>
-                """,
-                unsafe_allow_html=True,
+            table_content = "".join(table_rows_html)
+            table_full_html = (
+                '<table class="matrix-table">'
+                '<thead><tr>'
+                '<th>Sensor</th><th>Anomalies</th><th>Rate</th><th>Max Score</th><th>Missing</th><th>Stuck</th><th>Status</th>'
+                '</tr></thead>'
+                f'<tbody>{table_content}</tbody>'
+                '</table>'
             )
+            st.markdown(table_full_html, unsafe_allow_html=True)
 
         with bottom_col_right:
             st.markdown(
