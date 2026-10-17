@@ -8,7 +8,5 @@ font = "sans serif"
 
 [server]
 headless = true
-port = 8502
-address = "localhost"
 enableCORS = false
 enableXsrfProtection = false
