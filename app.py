@@ -1,6 +1,6 @@
 """TrustMesh — Enterprise Sensor Intelligence & Dynamic Trust Command Center.
 
-A product-grade industrial telemetry monitoring platform featuring
+A presentation-grade industrial telemetry monitoring platform featuring
 multi-detector anomaly fusion, cross-sensor evidence classification,
 and dynamic heuristic trust scoring.
 """
@@ -50,7 +50,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# --- Exact Reference Light Theme Design System (Scoped CSS) ---
+# --- Executive Presentation Design System (Scoped CSS) ---
 st.markdown(
     """
     <style>
@@ -58,16 +58,16 @@ st.markdown(
 
     /* High-End Enterprise Design Tokens */
     :root {
-        --tm-bg: #F4F7F4;
+        --tm-bg: #F8FAF9;
         --tm-surface: #FFFFFF;
-        --tm-surface-sub: #F8FAF8;
-        --tm-brand: #176B45;
-        --tm-brand-dark: #0D4E31;
+        --tm-surface-sub: #F1F5F2;
+        --tm-brand: #15803D;
+        --tm-brand-dark: #064E3B;
         --tm-brand-light: #22C55E;
-        --tm-brand-soft: #EAF4ED;
-        --tm-brand-border: #C6E2CF;
+        --tm-brand-soft: #ECFDF5;
+        --tm-brand-border: #BBF7D0;
         --tm-text: #0F172A;
-        --tm-text-secondary: #475569;
+        --tm-text-secondary: #334155;
         --tm-text-muted: #64748B;
         --tm-border: #E2E8F0;
         --tm-border-subtle: rgba(15, 23, 42, 0.06);
@@ -84,7 +84,7 @@ st.markdown(
         --tm-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
         --tm-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06), 0 1px 3px 0 rgba(15, 23, 42, 0.04);
         --tm-shadow-md: 0 8px 20px -4px rgba(15, 23, 42, 0.08), 0 3px 6px -2px rgba(15, 23, 42, 0.04);
-        --tm-shadow-hover: 0 12px 28px -6px rgba(23, 107, 69, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+        --tm-shadow-hover: 0 12px 28px -6px rgba(22, 163, 74, 0.14), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
         --tm-radius: 12px;
         --tm-radius-sm: 8px;
     }
@@ -96,6 +96,7 @@ st.markdown(
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         -webkit-font-smoothing: antialiased !important;
         -moz-osx-font-smoothing: grayscale !important;
+        font-feature-settings: 'cv02' 1, 'cv03' 1, 'cv04' 1, 'cv11' 1, 'tnum' 1;
     }
 
     /* Hide Streamlit default header bar */
@@ -106,10 +107,10 @@ st.markdown(
     /* Main Container Padding */
     .block-container {
         padding-top: 1.25rem !important;
-        padding-bottom: 2rem !important;
+        padding-bottom: 2.5rem !important;
         padding-left: 2rem !important;
         padding-right: 2rem !important;
-        max-width: 1440px !important;
+        max-width: 1480px !important;
     }
 
     /* Sidebar Shell */
@@ -119,8 +120,8 @@ st.markdown(
         padding-top: 1.25rem !important;
     }
     section[data-testid="stSidebar"] > div:first-child {
-        padding-left: 1.15rem !important;
-        padding-right: 1.15rem !important;
+        padding-left: 1.2rem !important;
+        padding-right: 1.2rem !important;
     }
 
     /* Sidebar Navigation Items: Sleek Nav tabs without radio circles */
@@ -160,7 +161,7 @@ st.markdown(
     div[data-testid="stRadio"] label:has(input[value*="Data Explorer"]:checked) {
         background-color: var(--tm-brand-soft) !important;
         border-left: 3.5px solid var(--tm-brand) !important;
-        box-shadow: 0 1px 3px rgba(23, 107, 69, 0.06) !important;
+        box-shadow: 0 1px 3px rgba(21, 128, 61, 0.08) !important;
     }
     div[data-testid="stRadio"] label:has(input[value*="Overview"]:checked) p,
     div[data-testid="stRadio"] label:has(input[value*="Sensor Analysis"]:checked) p,
@@ -176,13 +177,14 @@ st.markdown(
 
     /* Sidebar Scenario Lab Panel */
     .scenario-lab-box {
-        background: linear-gradient(180deg, #FFFFFF 0%, #FAFCFA 100%);
+        background: linear-gradient(180deg, #FFFFFF 0%, #F9FBF9 100%);
         border: 1px solid var(--tm-border);
         border-radius: var(--tm-radius);
-        padding: 16px;
+        padding: 14px 16px;
         margin-top: 14px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
         box-shadow: var(--tm-shadow-sm);
+        border-top: 3px solid var(--tm-brand);
     }
     .scenario-lab-title {
         font-size: 0.92rem;
@@ -198,12 +200,29 @@ st.markdown(
         font-size: 0.77rem;
         color: var(--tm-text-secondary);
         line-height: 1.4;
+    }
+
+    /* Preset Buttons Container */
+    .preset-container {
+        background: #F8FAF9;
+        border: 1px solid #E2E8F0;
+        border-radius: var(--tm-radius-sm);
+        padding: 10px;
+        margin-top: 8px;
         margin-bottom: 12px;
+    }
+    .preset-title {
+        font-size: 0.70rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--tm-text-muted);
+        margin-bottom: 6px;
     }
 
     /* Sidebar Bottom Info Box */
     .sidebar-info-box {
-        background: linear-gradient(135deg, var(--tm-brand-soft) 0%, #F0F8F3 100%);
+        background: linear-gradient(135deg, var(--tm-brand-soft) 0%, #F0FDF4 100%);
         border: 1px solid var(--tm-brand-border);
         border-radius: var(--tm-radius-sm);
         padding: 11px 13px;
@@ -222,17 +241,17 @@ st.markdown(
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 14px;
+        margin-bottom: 22px;
+        padding-bottom: 16px;
         border-bottom: 1px solid var(--tm-border);
     }
     .header-left-title {
-        font-size: 2.1rem;
+        font-size: 2.15rem;
         font-weight: 800;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.035em;
         line-height: 1.1;
         margin: 0;
-        background: linear-gradient(135deg, #0F172A 0%, #157347 100%);
+        background: linear-gradient(135deg, #0F172A 0%, #15803D 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -240,7 +259,7 @@ st.markdown(
         font-size: 0.98rem;
         font-weight: 700;
         color: #1E293B;
-        margin-top: 4px;
+        margin-top: 5px;
         margin-bottom: 3px;
         letter-spacing: -0.01em;
     }
@@ -259,7 +278,7 @@ st.markdown(
     .header-badge {
         font-size: 0.74rem;
         font-weight: 700;
-        padding: 6px 13px;
+        padding: 6px 14px;
         border-radius: 9999px;
         display: inline-flex;
         align-items: center;
@@ -274,17 +293,17 @@ st.markdown(
         transform: translateY(-1px);
     }
     .badge-demo {
-        background: linear-gradient(135deg, #EAF4ED 0%, #D8EFE0 100%);
-        color: #157347;
-        border: 1px solid #B8E2C5;
+        background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+        color: #065F46;
+        border: 1px solid #A7F3D0;
     }
     .badge-csv {
         background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-        color: #2563EB;
+        color: #1E40AF;
         border: 1px solid #BFDBFE;
     }
     .badge-prototype {
-        background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+        background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
         color: #475569;
         border: 1px solid #CBD5E1;
     }
@@ -294,9 +313,9 @@ st.markdown(
         color: #64748B;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 7px;
         margin-left: 6px;
-        padding: 5px 12px;
+        padding: 6px 14px;
         background: #FFFFFF;
         border: 1px solid var(--tm-border);
         border-radius: 9999px;
@@ -309,12 +328,12 @@ st.markdown(
         height: 8px;
         border-radius: 50%;
         background-color: #22C55E;
-        box-shadow: 0 0 0 2.5px rgba(34, 197, 94, 0.25);
-        animation: pulse-dot 2s infinite ease-in-out;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+        animation: pulse-beacon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
-    @keyframes pulse-dot {
+    @keyframes pulse-beacon {
         0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.6; transform: scale(1.15); }
+        50% { opacity: 0.55; transform: scale(1.2); }
     }
 
     /* KPI Cards */
@@ -322,11 +341,11 @@ st.markdown(
         background: #FFFFFF;
         border: 1px solid var(--tm-border);
         border-radius: var(--tm-radius);
-        padding: 16px 18px;
+        padding: 16px 20px;
         display: flex;
         align-items: center;
         gap: 16px;
-        min-height: 104px;
+        min-height: 108px;
         box-shadow: var(--tm-shadow);
         transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
         position: relative;
@@ -335,7 +354,7 @@ st.markdown(
     .kpi-container:hover {
         transform: translateY(-2.5px);
         box-shadow: var(--tm-shadow-hover);
-        border-color: rgba(23, 107, 69, 0.25);
+        border-color: rgba(22, 163, 74, 0.28);
     }
     .kpi-container::before {
         content: "";
@@ -344,8 +363,8 @@ st.markdown(
         left: 0;
         right: 0;
         height: 3px;
-        background: linear-gradient(90deg, #176B45, #22C55E);
-        opacity: 0.85;
+        background: linear-gradient(90deg, #15803D, #22C55E);
+        opacity: 0.9;
     }
     .kpi-icon-wrap {
         width: 48px;
@@ -361,14 +380,22 @@ st.markdown(
         transform: scale(1.06);
     }
     .kpi-icon-green {
-        background: linear-gradient(135deg, #EAF4ED 0%, #D4EEDD 100%);
-        color: #176B45;
-        border: 1px solid rgba(23, 107, 69, 0.15);
+        background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+        color: #065F46;
+        border: 1px solid rgba(22, 163, 74, 0.2);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 2px 4px rgba(22, 163, 74, 0.08);
     }
     .kpi-icon-amber {
-        background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-        color: #D97706;
-        border: 1px solid rgba(217, 119, 6, 0.2);
+        background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+        color: #B45309;
+        border: 1px solid rgba(217, 119, 6, 0.25);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 2px 4px rgba(217, 119, 6, 0.08);
+    }
+    .kpi-icon-blue {
+        background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+        color: #1E40AF;
+        border: 1px solid rgba(37, 99, 235, 0.25);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 2px 4px rgba(37, 99, 235, 0.08);
     }
     .kpi-body {
         display: flex;
@@ -378,20 +405,20 @@ st.markdown(
     .kpi-label-text {
         font-size: 0.68rem;
         font-weight: 700;
-        letter-spacing: 0.07em;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--tm-text-muted);
         margin-bottom: 2px;
     }
     .kpi-value-text {
-        font-size: 1.7rem;
+        font-size: 1.75rem;
         font-weight: 800;
         color: var(--tm-text);
-        letter-spacing: -0.03em;
+        letter-spacing: -0.035em;
         line-height: 1.1;
     }
     .kpi-sub-text {
-        font-size: 0.73rem;
+        font-size: 0.74rem;
         font-weight: 500;
         color: var(--tm-text-secondary);
         margin-top: 3px;
@@ -408,7 +435,7 @@ st.markdown(
         transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
     .card-panel:hover {
-        border-color: rgba(23, 107, 69, 0.2);
+        border-color: rgba(22, 163, 74, 0.22);
         box-shadow: var(--tm-shadow-md);
     }
     .card-panel-header {
@@ -423,7 +450,7 @@ st.markdown(
         gap: 10px;
     }
     .card-title-text {
-        font-size: 1.02rem;
+        font-size: 1.04rem;
         font-weight: 700;
         color: var(--tm-text);
         letter-spacing: -0.015em;
@@ -445,27 +472,27 @@ st.markdown(
         text-transform: uppercase;
         display: inline-flex;
         align-items: center;
-        gap: 4px;
+        gap: 5px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
     .pill-green {
-        background: linear-gradient(135deg, #EAF4ED 0%, #D4EEDD 100%);
-        color: #176B45;
-        border: 1px solid #B8E2C5;
+        background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+        color: #065F46;
+        border: 1px solid #A7F3D0;
     }
     .pill-amber {
-        background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+        background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
         color: #B45309;
-        border: 1px solid #FCD34D;
+        border: 1px solid #FDE68A;
     }
     .pill-red {
-        background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+        background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
         color: #B91C1C;
-        border: 1px solid #FCA5A5;
+        border: 1px solid #FECACA;
     }
     .pill-blue {
         background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-        color: #1D4ED8;
+        color: #1E40AF;
         border: 1px solid #BFDBFE;
     }
 
@@ -475,33 +502,46 @@ st.markdown(
         border: 1px solid var(--tm-border);
         border-radius: var(--tm-radius);
         padding: 14px 15px;
-        min-height: 136px;
+        min-height: 142px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         box-shadow: var(--tm-shadow);
         transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
         position: relative;
+        overflow: hidden;
     }
     .sensor-item-card:hover {
         transform: translateY(-3px);
         box-shadow: var(--tm-shadow-hover);
-        border-color: rgba(23, 107, 69, 0.3);
+        border-color: rgba(22, 163, 74, 0.3);
+    }
+    .sensor-item-accent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2.5px;
     }
     .sensor-item-top {
         display: flex;
         align-items: center;
-        gap: 8px;
+        justify-content: space-between;
         margin-bottom: 6px;
     }
+    .sensor-id-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
     .sensor-icon-box {
-        width: 26px;
-        height: 26px;
+        width: 24px;
+        height: 24px;
         border-radius: 6px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
     }
     .sensor-item-name {
         font-size: 0.88rem;
@@ -511,13 +551,13 @@ st.markdown(
         letter-spacing: -0.01em;
     }
     .sensor-item-score {
-        font-size: 1.45rem;
+        font-size: 1.48rem;
         font-weight: 800;
         font-family: 'Plus Jakarta Sans', sans-serif;
         color: var(--tm-text);
         line-height: 1.1;
-        margin: 2px 0 8px 0;
-        letter-spacing: -0.02em;
+        margin: 3px 0 8px 0;
+        letter-spacing: -0.025em;
     }
     .sensor-item-scale {
         font-size: 0.75rem;
@@ -527,7 +567,7 @@ st.markdown(
     .sensor-item-bar-bg {
         width: 100%;
         height: 6px;
-        background-color: #EDF2F7;
+        background-color: #F1F5F9;
         border-radius: 9999px;
         overflow: hidden;
         margin-bottom: 10px;
@@ -538,7 +578,7 @@ st.markdown(
         transition: width 0.4s ease;
     }
     .sensor-item-desc {
-        font-size: 0.73rem;
+        font-size: 0.72rem;
         color: var(--tm-text-secondary);
         line-height: 1.35;
         display: -webkit-box;
@@ -549,34 +589,39 @@ st.markdown(
 
     /* Diagnostics Card Inner Typography */
     .diag-headline {
-        font-size: 1.05rem;
+        font-size: 1.08rem;
         font-weight: 700;
         color: var(--tm-text);
         margin-top: 4px;
         margin-bottom: 8px;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.015em;
     }
     .diag-body-text {
-        font-size: 0.84rem;
+        font-size: 0.83rem;
         color: var(--tm-text-secondary);
         line-height: 1.55;
         margin-bottom: 14px;
     }
     .diag-section-title {
-        font-size: 0.76rem;
+        font-size: 0.74rem;
         font-weight: 700;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
         text-transform: uppercase;
         color: var(--tm-text-muted);
         margin-bottom: 6px;
     }
-    .diag-bullet {
-        font-size: 0.81rem;
-        color: var(--tm-text-secondary);
-        line-height: 1.55;
+    .diag-bullet-card {
+        background: #F8FAFC;
+        border: 1px solid #EDF2F7;
+        border-left: 3px solid #16A34A;
+        border-radius: 6px;
+        padding: 6px 10px;
         margin-bottom: 6px;
+        font-size: 0.79rem;
+        color: #334155;
+        line-height: 1.45;
         display: flex;
-        align-items: baseline;
+        align-items: flex-start;
         gap: 8px;
     }
 
@@ -591,13 +636,11 @@ st.markdown(
     div[data-baseweb="select"] > div:hover {
         border-color: var(--tm-brand-border) !important;
     }
-    /* Number input boxes */
     div[data-testid="stNumberInput"] input {
         border-radius: var(--tm-radius-sm) !important;
         font-family: 'JetBrains Mono', monospace !important;
         font-weight: 600 !important;
     }
-    /* Multi-select filter chips */
     span[data-baseweb="tag"] {
         border-radius: 9999px !important;
         font-family: 'JetBrains Mono', monospace !important;
@@ -620,17 +663,17 @@ st.markdown(
     }
     .matrix-table th {
         background: #F8FAFC;
-        padding: 9px 12px;
+        padding: 10px 12px;
         font-weight: 700;
         text-transform: uppercase;
         font-size: 0.68rem;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
         color: #475569;
         border-bottom: 1px solid var(--tm-border);
         text-align: left;
     }
     .matrix-table td {
-        padding: 8px 12px;
+        padding: 9px 12px;
         border-bottom: 1px solid #F1F5F9;
         color: #1E293B;
     }
@@ -639,6 +682,9 @@ st.markdown(
     }
     .matrix-table tr:hover td {
         background-color: #F8FAF8;
+    }
+    .matrix-table tr.row-anom td {
+        background-color: #FFFBEB;
     }
     .matrix-code {
         font-family: 'JetBrains Mono', monospace;
@@ -666,17 +712,22 @@ def get_synthetic_data(n_samples: int, seed: int) -> pd.DataFrame:
 # 1. SIDEBAR: BRAND, NAVIGATION, AND SCENARIO LAB
 # ==============================================================================
 with st.sidebar:
-    # A. Brand Area with Leaf Icon
+    # A. Brand Area with Modern Gradient Logo
     st.markdown(
         """
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22L6.66 19.7C7.14 19.87 7.64 20 8 20C19 20 22 3 22 3C21 5 14 5.25 9 6.25C4 7.25 2 11.5 2 13.5C2 15.5 3.75 17.25 3.75 17.25C7 11 11.33 10.17 17 8Z" fill="#176B45"/>
-            </svg>
-            <span style="font-size: 1.3rem; font-weight: 800; color: #18251D; letter-spacing: -0.02em;">TrustMesh</span>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 2px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #15803D 0%, #22C55E 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(21, 128, 61, 0.25);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
+            <div>
+                <div style="font-size: 1.35rem; font-weight: 800; color: #0F172A; letter-spacing: -0.03em; line-height: 1;">TrustMesh</div>
+                <div style="font-size: 0.72rem; font-weight: 600; color: #16A34A; letter-spacing: 0.04em; text-transform: uppercase;">Sensor Intelligence</div>
+            </div>
         </div>
-        <div style="font-size: 0.78rem; color: #68766D; margin-left: 32px; margin-bottom: 16px;">
-            Sensor Intelligence
+        <div style="font-size: 0.75rem; color: #64748B; margin-top: 6px; margin-bottom: 14px;">
+            Industrial Telemetry & Dynamic Trust
         </div>
         """,
         unsafe_allow_html=True,
@@ -705,6 +756,24 @@ with st.sidebar:
         """,
         unsafe_allow_html=True,
     )
+
+    # Presentation Demo Presets for seamless live demonstrations
+    st.markdown('<div class="preset-title">🎯 Presentation Quick Presets</div>', unsafe_allow_html=True)
+    p_col1, p_col2 = st.columns(2)
+    with p_col1:
+        if st.button("🟢 Nominal", help="Reset to clean baseline operation", use_container_width=True):
+            st.session_state["scenario_override"] = "normal operation"
+            st.session_state["target_override"] = "FIT101"
+        if st.button("⚡ Fast Spike", help="Sudden transient spike on FIT101", use_container_width=True):
+            st.session_state["scenario_override"] = "a short sudden spike"
+            st.session_state["target_override"] = "FIT101"
+    with p_col2:
+        if st.button("⚠️ LIT Drift", help="Gradual drift fault on LIT101", use_container_width=True):
+            st.session_state["scenario_override"] = "gradual drift in one sensor"
+            st.session_state["target_override"] = "LIT101"
+        if st.button("🏭 Shift", help="Coupled multi-sensor process event", use_container_width=True):
+            st.session_state["scenario_override"] = "process shift in multiple sensors"
+            st.session_state["target_override"] = "FIT101"
 
     data_source = st.radio(
         "Data Source 🛈",
@@ -754,19 +823,28 @@ with st.sidebar:
             st.info("Upload a CSV file or switch to Synthetic Telemetry.")
 
     if raw_df is not None:
+        # Determine default scenario from preset override or default
+        default_scenario_idx = 0
+        if "scenario_override" in st.session_state and st.session_state["scenario_override"] in AVAILABLE_SCENARIOS:
+            default_scenario_idx = AVAILABLE_SCENARIOS.index(st.session_state["scenario_override"])
+
         selected_scenario = st.selectbox(
             "Operational Scenario",
             options=AVAILABLE_SCENARIOS,
-            index=0,
+            index=default_scenario_idx,
             help="Simulate baseline operation, sensor malfunctions, or process events.",
         )
 
         is_single_sensor = selected_scenario in SINGLE_SENSOR_SCENARIOS
         if is_single_sensor:
+            default_target_idx = 0
+            if "target_override" in st.session_state and st.session_state["target_override"] in REQUIRED_SENSORS:
+                default_target_idx = REQUIRED_SENSORS.index(st.session_state["target_override"])
+
             selected_target = st.selectbox(
                 "Target Sensor 🛈",
                 options=REQUIRED_SENSORS,
-                index=0,
+                index=default_target_idx,
                 help="Primary sensor targeted for fault injection.",
             )
         else:
@@ -831,7 +909,7 @@ if raw_df is not None:
             <div>
                 <h1 class="header-left-title">TrustMesh</h1>
                 <div class="header-left-sub">Sensor Intelligence & Dynamic Trust Monitoring</div>
-                <p class="header-left-desc">Detect anomalies, understand context, and evaluate sensor reliability using cross-sensor evidence.</p>
+                <p class="header-left-desc">Detect anomalies, understand physical context, and evaluate sensor reliability using cross-sensor evidence.</p>
             </div>
             <div class="header-right-badges">
                 <span class="header-badge {prov_badge_cls}" id="data-provenance-badge">⭳ {prov_badge_txt}</span>
@@ -853,7 +931,7 @@ if raw_df is not None:
             f"""
             <div class="kpi-container">
                 <div class="kpi-icon-wrap kpi-icon-green">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#176B45" stroke-width="2">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.2">
                         <ellipse cx="12" cy="5" rx="9" ry="3"/>
                         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
@@ -873,11 +951,14 @@ if raw_df is not None:
         anom_c = summary["anomalous_samples"]
         tot_c = summary["total_samples"]
         pct_rate = summary["anomaly_rate"] * 100
+        anom_icon_cls = "kpi-icon-green" if anom_c == 0 else "kpi-icon-amber"
+        anom_stroke = "#15803D" if anom_c == 0 else "#D97706"
+
         st.markdown(
             f"""
             <div class="kpi-container">
-                <div class="kpi-icon-wrap kpi-icon-green">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#176B45" stroke-width="2">
+                <div class="kpi-icon-wrap {anom_icon_cls}">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{anom_stroke}" stroke-width="2.2">
                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
                     </svg>
                 </div>
@@ -893,7 +974,7 @@ if raw_df is not None:
 
     with kpi_col3:
         if verdict == VERDICT_NORMAL:
-            v_color = "#176B45"
+            v_color = "#15803D"
             v_icon_cls = "kpi-icon-green"
             v_title = "NORMAL"
             v_sub = "Baseline operation"
@@ -903,8 +984,8 @@ if raw_df is not None:
             v_title = "SENSOR FAULT"
             v_sub = "Suspected"
         elif verdict == VERDICT_PROCESS_EVENT:
-            v_color = "#2878C8"
-            v_icon_cls = "kpi-icon-green"
+            v_color = "#2563EB"
+            v_icon_cls = "kpi-icon-blue"
             v_title = "PROCESS EVENT"
             v_sub = "Coordinated shift"
         else:
@@ -917,7 +998,7 @@ if raw_df is not None:
             f"""
             <div class="kpi-container">
                 <div class="kpi-icon-wrap {v_icon_cls}">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{v_color}" stroke-width="2">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{v_color}" stroke-width="2.2">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     </svg>
                 </div>
@@ -932,11 +1013,12 @@ if raw_df is not None:
         )
 
     with kpi_col4:
+        trust_color = "#15803D" if mean_trust >= 80 else ("#D97706" if mean_trust >= 50 else "#DC2626")
         st.markdown(
             f"""
             <div class="kpi-container">
                 <div class="kpi-icon-wrap kpi-icon-green">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#176B45" stroke-width="2">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.2">
                         <line x1="18" y1="20" x2="18" y2="10"/>
                         <line x1="12" y1="20" x2="12" y2="4"/>
                         <line x1="6" y1="20" x2="6" y2="14"/>
@@ -944,7 +1026,7 @@ if raw_df is not None:
                 </div>
                 <div class="kpi-body">
                     <span class="kpi-label-text">Mean Heuristic Trust</span>
-                    <span class="kpi-value-text">{mean_trust:.1f} / 100</span>
+                    <span class="kpi-value-text" style="color: {trust_color};">{mean_trust:.1f} <span style="font-size: 0.95rem; font-weight: 600; color: #64748B;">/ 100</span></span>
                     <span class="kpi-sub-text">Across all sensors</span>
                 </div>
             </div>
@@ -967,13 +1049,13 @@ if raw_df is not None:
             # Chart Card Container
             st.markdown(
                 """
-                <div style="background-color: #FFFFFF; border: 1px solid #E1E8E2; border-radius: 10px; padding: 16px 18px 8px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px 18px 6px 18px; box-shadow: var(--tm-shadow);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <span style="color: #176B45; font-size: 1.15rem;">📈</span>
+                            <span style="color: #15803D; font-size: 1.15rem;">📈</span>
                             <div>
-                                <div style="font-size: 0.98rem; font-weight: 700; color: #18251D;">Sensor Telemetry</div>
-                                <div style="font-size: 0.78rem; color: #68766D;">Interactive view of sensor readings with detected anomalies and simulation window.</div>
+                                <div style="font-size: 0.98rem; font-weight: 700; color: #0F172A;">Sensor Telemetry</div>
+                                <div style="font-size: 0.77rem; color: #64748B;">Interactive view of sensor readings with detected anomalies and simulation window.</div>
                             </div>
                         </div>
                     </div>
@@ -1046,7 +1128,7 @@ if raw_df is not None:
             use_scaled = (scale_mode == "Scaled (Reference)")
             fig = go.Figure()
 
-            # 1. Add sensor traces
+            # 1. Add sensor traces with smooth splines
             for s in selected_channels:
                 raw_y = annotated_df[s]
                 factor = norm_factors.get(s, 1.0) if use_scaled else 1.0
@@ -1059,7 +1141,12 @@ if raw_df is not None:
                         y=plot_y,
                         mode="lines",
                         name=s,
-                        line=dict(color=trace_palette.get(s, "#176B45"), width=2.2),
+                        line=dict(
+                            color=trace_palette.get(s, "#15803D"),
+                            width=2.4,
+                            shape="spline",
+                            smoothing=1.1,
+                        ),
                         customdata=raw_y,
                         hovertemplate=f"<b>{s}</b>: %{{customdata:.2f}} {unit}<extra></extra>",
                     )
@@ -1076,7 +1163,7 @@ if raw_df is not None:
                 fig.add_vrect(
                     x0=metadata["start_time"],
                     x1=metadata["end_time"],
-                    fillcolor="rgba(244, 63, 94, 0.10)",
+                    fillcolor="rgba(244, 63, 94, 0.09)",
                     layer="below",
                     line=dict(color="rgba(225, 29, 72, 0.75)", dash="dash", width=1.6),
                 )
@@ -1112,9 +1199,9 @@ if raw_df is not None:
                                 showlegend=(not anomaly_legend_added),
                                 marker=dict(
                                     color="#E11D48",
-                                    size=7,
+                                    size=8,
                                     symbol="diamond",
-                                    line=dict(color="#FFFFFF", width=1.2),
+                                    line=dict(color="#FFFFFF", width=1.4),
                                 ),
                                 customdata=raw_y,
                                 hovertemplate=f"<b>{s} Anomaly</b>: %{{customdata:.2f}} {unit}<extra></extra>",
@@ -1187,7 +1274,7 @@ if raw_df is not None:
                 ]
 
             evidence_bullets_html = "".join(
-                f'<div class="diag-bullet"><span style="color: #16A34A; font-weight: 700; font-size: 0.82rem;">✦</span> <span>{item}</span></div>'
+                f'<div class="diag-bullet-card"><span style="color: #16A34A; font-weight: 700; font-size: 0.82rem;">✦</span> <span>{item}</span></div>'
                 for item in evidence_items[:4]
             )
             affected_sensor_tags = "".join(
@@ -1207,7 +1294,7 @@ if raw_df is not None:
                     <div>
                         <div class="card-panel-header">
                             <div class="card-title-group">
-                                <span style="color: #176B45; font-size: 1.25rem;">🛡️</span>
+                                <span style="color: #15803D; font-size: 1.25rem;">🛡️</span>
                                 <span class="card-title-text">Diagnostic Summary</span>
                             </div>
                             <span class="status-pill {v_pill_class}">{verdict.replace('_', ' ')}</span>
@@ -1238,7 +1325,7 @@ if raw_df is not None:
             <div class="card-panel" style="padding-bottom: 14px; margin-top: 4px;">
                 <div class="card-panel-header">
                     <div class="card-title-group">
-                        <span style="color: #176B45; font-size: 1.25rem;">🛡️</span>
+                        <span style="color: #15803D; font-size: 1.25rem;">🛡️</span>
                         <div>
                             <div class="card-title-text">Sensor Trust Overview</div>
                             <div class="card-subtitle-text">Heuristic trust scores based on anomaly behavior, data quality and cross-sensor consistency.</div>
@@ -1252,7 +1339,7 @@ if raw_df is not None:
         )
 
         sensor_card_cols = st.columns(6)
-        icon_colors = ["#FEF3C7", "#EFF6FF", "#EAF4ED", "#EFF6FF", "#EFF6FF", "#EAF4ED"]
+        icon_colors = ["#FEF3C7", "#EFF6FF", "#ECFDF5", "#EFF6FF", "#EFF6FF", "#ECFDF5"]
         icon_strokes = ["#D97706", "#2563EB", "#16A34A", "#0284C7", "#0D9488", "#9333EA"]
 
         for i, s in enumerate(REQUIRED_SENSORS):
@@ -1264,12 +1351,15 @@ if raw_df is not None:
                 if lvl == TRUST_HIGH:
                     p_cls = "pill-green"
                     bar_fill_style = "background: linear-gradient(90deg, #16A34A 0%, #22C55E 100%);"
+                    top_bar_style = "background: linear-gradient(90deg, #16A34A, #22C55E);"
                 elif lvl == TRUST_MODERATE:
                     p_cls = "pill-amber"
                     bar_fill_style = "background: linear-gradient(90deg, #D97706 0%, #F59E0B 100%);"
+                    top_bar_style = "background: linear-gradient(90deg, #D97706, #F59E0B);"
                 else:
                     p_cls = "pill-red"
                     bar_fill_style = "background: linear-gradient(90deg, #DC2626 0%, #EF4444 100%);"
+                    top_bar_style = "background: linear-gradient(90deg, #DC2626, #EF4444);"
 
                 bg_icon = icon_colors[i % len(icon_colors)]
                 stroke_icon = icon_strokes[i % len(icon_strokes)]
@@ -1278,19 +1368,20 @@ if raw_df is not None:
                 st.markdown(
                     f"""
                     <div class="sensor-item-card">
+                        <div class="sensor-item-accent" style="{top_bar_style}"></div>
                         <div>
                             <div class="sensor-item-top">
-                                <div class="sensor-icon-box" style="background-color: {bg_icon}; color: {stroke_icon};">📈</div>
-                                <span class="sensor-item-name">{s}</span>
+                                <div class="sensor-id-group">
+                                    <div class="sensor-icon-box" style="background-color: {bg_icon}; color: {stroke_icon};">📈</div>
+                                    <span class="sensor-item-name">{s}</span>
+                                </div>
+                                <span class="status-pill {p_cls}">{lvl}</span>
                             </div>
                             <div class="sensor-item-score">
                                 {score:.1f} <span class="sensor-item-scale">/ 100</span>
                             </div>
                             <div class="sensor-item-bar-bg">
                                 <div class="sensor-item-bar-fill" style="width: {score}%; {bar_fill_style}"></div>
-                            </div>
-                            <div style="text-align: center; margin-bottom: 6px;">
-                                <span class="status-pill {p_cls}">{lvl}</span>
                             </div>
                         </div>
                         <div class="sensor-item-desc" title="{first_reason}">{first_reason}</div>
@@ -1309,7 +1400,7 @@ if raw_df is not None:
                 """
                 <div class="card-panel" style="margin-bottom: 12px;">
                     <div class="card-title-group">
-                        <span style="color: #176B45; font-size: 1.25rem;">📊</span>
+                        <span style="color: #15803D; font-size: 1.25rem;">📊</span>
                         <div>
                             <div class="card-title-text">Cross-Sensor Evidence Matrix</div>
                             <div class="card-subtitle-text">Multi-dimensional verification of physical consistency and anomalies.</div>
@@ -1340,6 +1431,7 @@ if raw_df is not None:
                         "Missing (%)": f"{missing_pct:.1f}%",
                         "Stuck": is_stuck,
                         "Status": status_lvl,
+                        "HasAnom": anom_count > 0,
                     }
                 )
 
@@ -1347,8 +1439,9 @@ if raw_df is not None:
             for row in matrix_rows:
                 lvl = row["Status"]
                 p_cls = "pill-green" if lvl == TRUST_HIGH else ("pill-amber" if lvl == TRUST_MODERATE else "pill-red")
+                row_cls = "row-anom" if row["HasAnom"] else ""
                 table_rows_html.append(f"""
-                <tr>
+                <tr class="{row_cls}">
                     <td class="matrix-code">{row['Sensor']}</td>
                     <td class="matrix-num">{row['Anomaly Count']}</td>
                     <td class="matrix-num">{row['Anomaly Rate']}</td>
@@ -1386,9 +1479,9 @@ if raw_df is not None:
                 """
                 <div class="card-panel" style="margin-bottom: 12px;">
                     <div class="card-title-group">
-                        <span style="color: #176B45; font-size: 1.25rem;">🗄️</span>
+                        <span style="color: #15803D; font-size: 1.25rem;">🗄️</span>
                         <div>
-                            <div class="card-title-text">Raw Data & Derived Columns</div>
+                            <div class="card-title-text">Raw Data & Derived Signals</div>
                             <div class="card-subtitle-text">View complete telemetry with anomaly scores, flags and derived signals.</div>
                         </div>
                     </div>
@@ -1413,7 +1506,7 @@ if raw_df is not None:
                 sc = s_info["trust_score"]
                 lv = s_info["trust_level"]
                 p_c = "pill-green" if lv == TRUST_HIGH else ("pill-amber" if lv == TRUST_MODERATE else "pill-red")
-                b_c = "#176B45" if lv == TRUST_HIGH else ("#D97706" if lv == TRUST_MODERATE else "#DC5353")
+                b_c = "#15803D" if lv == TRUST_HIGH else ("#D97706" if lv == TRUST_MODERATE else "#DC2626")
                 r_txt = s_info["reasons"][0] if s_info["reasons"] else "Operating normally"
 
                 st.markdown(
@@ -1515,7 +1608,7 @@ if raw_df is not None:
 # Footer
 st.markdown(
     """
-    <div style="border-top: 1px solid #E1E8E2; margin-top: 24px; padding-top: 12px; font-size: 0.74rem; color: #68766D; line-height: 1.5;">
+    <div style="border-top: 1px solid #E2E8F0; margin-top: 24px; padding-top: 14px; font-size: 0.74rem; color: #64748B; line-height: 1.5;">
         <b>TrustMesh Industrial Prototype Notice</b>: 
         This application is an engineering demonstration of sensor trust evaluation and cross-sensor evidence classification.
         All telemetry presented is synthetic simulation data or user-provided CSV inputs; no connection to live plant hardware or external SCADA networks is claimed.
