@@ -1,0 +1,14 @@
+[theme]
+base = "light"
+primaryColor = "#176B45"
+backgroundColor = "#F5F7F5"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#18251D"
+font = "sans serif"
+
+[server]
+headless = true
+port = 8502
+address = "localhost"
+enableCORS = false
+enableXsrfProtection = false
